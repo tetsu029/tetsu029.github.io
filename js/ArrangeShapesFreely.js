@@ -12,12 +12,20 @@ function changeShape(changeOpt){
         case "range_size_width":
             targetObj.style.width = changeOpt.value + "px";
             targetObj.setAttribute("width",changeOpt.value);
+            if(targetObj.getAttribute("shapetype") === "triangle"){
+                var tr_bw = "0px " + targetObj.getAttribute("width")/2 + "px " + targetObj.getAttribute("height") + "px "+ targetObj.getAttribute("width")/2 + "px";
+                targetObj.style.borderWidth = tr_bw;
+            }
             break;
         case "size_height":
         case "range_size_height":
             targetObj.style.height = changeOpt.value + "px";
             targetObj.setAttribute("height",changeOpt.value);
             targetObj.style.lineHeight = changeOpt.value/2 + "px";
+            if(targetObj.getAttribute("shapetype") === "triangle"){
+                var tr_bw = "0px " + targetObj.getAttribute("width")/2 + "px " + targetObj.getAttribute("height") + "px "+ targetObj.getAttribute("width")/2 + "px";
+                targetObj.style.borderWidth = tr_bw;
+            }
             break;
         case "angle":
         case "range_angle":
@@ -78,7 +86,7 @@ function addShape(){
     var angle = document.getElementById("angle").value;
     console.log("txt:"+txt+" shapetype:"+shapetype+" color:"+color+" size_w:"+size_w+" size_h:"+size_h);
     
-    //’lİ’è
+    //å€¤è¨­å®š
     obj.setAttribute("txt",txt);
     obj.setAttribute("shapetype",shapetype);
     obj.setAttribute("color",color);
@@ -100,7 +108,7 @@ function addShape(){
         obj.style.backgroundColor = color;
     }
     
-    //ƒCƒxƒ“ƒgİ’è
+    //ã‚¤ãƒ™ãƒ³ãƒˆè¨­å®š
     obj.onmousedown = function(event) {
       obj.setAttribute("ismoving",true);
       
@@ -118,7 +126,7 @@ function addShape(){
 
       moveAt(event.pageX, event.pageY);
 
-      // ƒ{[ƒ‹‚ğipageXApageYjÀ•W‚Ì’†S‚É’u‚­
+      // ãƒœãƒ¼ãƒ«ã‚’ï¼ˆpageXã€pageYï¼‰åº§æ¨™ã®ä¸­å¿ƒã«ç½®ã
       function moveAt(pageX, pageY) {
         obj.style.left = pageX - shiftX + 'px';
         obj.style.top = pageY - shiftY + 'px';
@@ -130,10 +138,10 @@ function addShape(){
         }
       }
 
-      // (3) mousemove ‚Åƒ{[ƒ‹‚ğˆÚ“®‚·‚é
+      // (3) mousemove ã§ãƒœãƒ¼ãƒ«ã‚’ç§»å‹•ã™ã‚‹
       document.addEventListener('mousemove', onMouseMove);
 
-      // (4) ƒ{[ƒ‹‚ğƒhƒƒbƒv‚·‚éB•s—v‚Èƒnƒ“ƒhƒ‰‚ğíœ‚·‚é
+      // (4) ãƒœãƒ¼ãƒ«ã‚’ãƒ‰ãƒ­ãƒƒãƒ—ã™ã‚‹ã€‚ä¸è¦ãªãƒãƒ³ãƒ‰ãƒ©ã‚’å‰Šé™¤ã™ã‚‹
       obj.onmouseup = function() {
         document.removeEventListener('mousemove', onMouseMove);
         obj.onmouseup = null;
@@ -145,7 +153,7 @@ function addShape(){
       return false;
     };
     
-    //ƒŠƒXƒg’Ç‰Á
+    //ãƒªã‚¹ãƒˆè¿½åŠ 
     var shapeslist = document.getElementById("shapeslist");
     var shape = document.createElement("option");
     shape.text = txt;
@@ -161,7 +169,7 @@ function addShape(){
     shapeslist.appendChild(shape);
     shape.selected = true;
     
-    //’Ç‰Á
+    //è¿½åŠ 
     obj.id = shape.value;
     palette.appendChild(obj);
     
