@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>図形を自由に配置する - ArrangeShapesFreely -</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="side">
+        <p>name:<input type="text" id="txt"></p>
+        <p>shape:<select id="shapetype">
+            <option value="rectangle" selected>rectangle</option>
+            <option value="circle">circle</option>
+            <option value="triangle">triangle</option>
+        </select>
+        color:<input type="color" id="color" class="color" /></p>
+        <p><div class="range">
+            size height:<input type="range" id="range_size_height" min="0" max="1000" step="1" class="rangebar" value="200"></input>
+            <input type="number" id="size_height" min="0" max="1000" step="1" class="sizenum"></input>
+        </div></p>
+        <p><div class="range">
+            size width:<input type="range" id="range_size_width" min="0" max="1000" step="1" class="rangebar" value="200"></input>
+            <input type="number" id="size_width" min="0" max="1000" step="1" class="sizenum"></input>
+        </div></p>
+        <p><div class="range">
+            angle:<input type="range" id="range_angle" min="0" max="360" step="1" class="rangebar" value="0"></input>
+            <input type="number" id="angle" min="0" max="360" step="45" class="sizenum"></input>
+        </div></p>
+        <p><button type="button" id="btn_add" onclick="add()">ADD</button></p>
+        <br>
+        <br>
+        <br>
+        <p>Shapes List</p>
+        <p><select id="shapeslist" name="shapelist" size="10" >
+        </select></p>
+        <p>name:<input type="text" id="txt_change" class="change"></p>
+        <p>shape:<select id="shapetype_change" class="change">
+            <option value="rectangle">rectangle</option>
+            <option value="circle">circle</option>
+            <option value="triangle">triangle</option>
+        </select>
+        color:<input type="color" id="color_change" class="color change" /></p>
+        <p><div class="range">
+            size height:<input type="range" id="range_size_height_change" min="0" max="1000" step="1" class="rangebar change"></input>
+            <input type="number" id="size_height_change" min="0" max="1000" step="1" class="sizenum change"></input>
+        </div></p>
+        <p><div class="range">
+            size width:<input type="range" id="range_size_width_change" min="0" max="1000" step="1" class="rangebar change"></input>
+            <input type="number" id="size_width_change" min="0" max="1000" step="1" class="sizenum change"></input>
+        </div></p>
+        <p><div class="range">
+            angle:<input type="range" id="range_angle_change" min="0" max="360" step="1" class="rangebar change" value="0"></input>
+            <input type="number" id="angle_change" min="0" max="360" step="45" class="sizenum change"></input>
+        </div></p>
+        <button type="button" id="btn_delete" onclick="deleteShape()">DELETE</button>
+    </div>
+    <div id="palette"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/ArrangeShapesFreely.js" type="text/javascript"></script>
+    <script>
+        window.onload = function(){
+            var elem = document.getElementsByClassName('range');
+            var rangeValue = function (elem, target) {
+                    return function(evt){
+                        target.value = elem.value;
+                    }
+            }
+            Array.from(elem).forEach(function(element) {
+                bar = element.getElementsByTagName('input')[0];
+                target = element.getElementsByTagName('input')[1];
+                bar.addEventListener('input', rangeValue(bar, target));
+                target.addEventListener('input', rangeValue(target, bar));
+                bar.dispatchEvent(new Event('input'));
+            });
+            setColor(true);
+            
+            var change_elem = document.getElementsByClassName('change');
+            Array.from(change_elem).forEach(function(element) {
+                element.addEventListener('change', function (e) {
+                  changeShape(this);
+                });
+            });
+        }
+        
+        function add(){
+            addShape();
+            setColor(false);
+        }
+        function setColor(isChange){
+            var colorpicker;
+            if(isChange){
+                colorpicker = document.getElementsByClassName('color');
+            }
+            else{
+                colorpicker = [document.getElementById('color')];
+            }
+            var rndColor = getRandomColor();
+            Array.from(colorpicker).forEach(element => element.value = rndColor);
+        }
+    </script>
+</body>
+</html>

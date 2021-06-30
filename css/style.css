@@ -1,0 +1,55 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+body {
+    display:flex;
+    overflow: hidden;
+    margin: 0;
+}
+body, html {
+    width:100%;
+    height:100%;
+}
+#palette {
+    background-color:#b3d874;
+    width:80%;
+    height:100%;
+    text-align:center;
+}
+#side {
+    background-color:#ff838b;
+    width:20%;
+    height:100%;
+    text-align:center;
+}
+
+.obj {
+    position: absolute;
+    user-select:none;
+  }
+.obj::after {
+    text-align:center;
+    white-space: pre;
+    content: attr(txt) "\a" attr(width) "*" attr(height);
+}
+
+.sizenum{
+    width: 15%;
+}
+.rangebar{
+    width: 50%;
+}
+
+.circle{
+	border-radius: 50%;
+}
+.triangle {
+	border-style: solid;
+}
+
+button{
+    width: 20%;
+}
+#shapeslist{
+    width: 50%;
+}
